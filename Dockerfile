@@ -1,8 +1,14 @@
-FROM squidfunk/mkdocs-material:5.1.0
-LABEL maintainer="Michael Hausenblas, hausenbl@amazon.com"
+FROM python:3.8-slim
 
-COPY action.sh /action.sh
+LABEL "maintainer" "Didier Bröska <didier.broska@gmail.com>
+LABEL "repository" "https://github.com/didierbroska/gh-actions-mkdocs-deploy-gh-pages"
+LABEL "homepage" "https://github.com/didierbroska/gh-actions-mkpocs-deploy-gh-pages"
 
-RUN apk add --no-cache bash && chmod +x /action.sh
+RUN pip install --upgrade --no-cache-dir mkdocs
 
-ENTRYPOINT ["/action.sh"]
+WORKDIR /app
+COPY LICENSE
+COPY mkdocs-build.sh
+
+RUN chmod +x mkdocs-build.sh
+ENTRYPOINT ["/app/mkdocs-build.sh"]
