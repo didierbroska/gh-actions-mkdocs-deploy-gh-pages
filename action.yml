@@ -6,11 +6,6 @@ branding:
   icon: 'arrow-up-circle'  
   color: 'orange'
 runs: |
-  pip install --upgrade pip
-  if [ -n "${REQUIREMENT}" ]; then
-    pip install -r ${REQUIREMENT}
-  else
-    pip install mkdocs
-  fi
+  python -m pip install --upgrade pip mkdocs
   mkdocs gh-deploy --config-file $"{GITHUB_WORKSPACE}/mkdocs.yml" --force
 
