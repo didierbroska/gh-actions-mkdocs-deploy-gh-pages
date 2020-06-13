@@ -5,6 +5,12 @@ author: 'didier Bröska, didier.broska@gmail.com'
 branding:
   icon: 'arrow-up-circle'  
   color: 'orange'
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
+runs: |
+  pip install --upgrade pip
+  if [ -n "${REQUIREMENT}" ]; then
+    pip install -r ${REQUIREMENT}
+  else
+    pip install mkdocs
+  fi
+  mkdocs gh-deploy --config-file $"{GITHUB_WORKSPACE}/mkdocs.yml" --force
+
